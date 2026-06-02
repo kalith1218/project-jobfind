@@ -22,6 +22,8 @@ function App(){
     {/* Routes */}
 
     <Routes>
+               
+               <Route path="/" element={<RegisterPage />} />
 
                 <Route
                     path="/login"
