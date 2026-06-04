@@ -1,5 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
+import os
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -84,18 +86,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'findjob_db',
-        'USER': 'root',
-        'PASSWORD': 'developer18',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
+    "default": dj_database_url.config(
+        default="postgresql://postgres:developer18@localhost:5432/findjob_db"
+    )
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
