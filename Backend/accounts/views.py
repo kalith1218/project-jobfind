@@ -18,24 +18,25 @@ from .serializers import (
 
 @api_view(['POST'])
 def register_user(request):
+    try:
+        serializer = RegisterSerializer(data=request.data)
 
-    serializer = RegisterSerializer(
-        data=request.data
-    )
+        if serializer.is_valid():
+            serializer.save()
 
-    if serializer.is_valid():
-
-        serializer.save()
+            return Response(
+                {"message": "User Registered Successfully"},
+                status=status.HTTP_201_CREATED
+            )
 
         return Response(
-            {"message": "User Registered Successfully"},
-            status=status.HTTP_201_CREATED
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
         )
 
-    return Response(
-        serializer.errors,
-        status=status.HTTP_400_BAD_REQUEST
-    )
+    except Exception as e:
+        print("REGISTER ERROR:", repr(e))
+        raise
 
 
 @api_view(['POST'])
